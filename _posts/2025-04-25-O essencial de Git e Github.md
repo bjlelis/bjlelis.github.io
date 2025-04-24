@@ -90,7 +90,7 @@ GitHub é, entre outras coisas, uma plataforma de hospedagem de repositórios Gi
 - Abrir issues e pull requests
 - Usar GitHub Actions para automações
 
-### Workflow básico de git e github:
+## Workflow básico de git e github:
 
 1. Clone o repositório remoto com git clone
 2. Crie uma branch com git checkout -b minha-branch
