@@ -23,44 +23,44 @@ Se você trabalha com desenvolvimento de software, é essencial entender **Git**
 
 ## Principais comandos do Git:
 
-# Inicializa um repositório Git
+**Inicializa um repositório Git**
 git init
 
-# Clona um repositório remoto
+**Clona um repositório remoto**
 git clone https://github.com/usuario/repositorio.git
 
-# Verifica o status das alterações
+**Verifica o status das alterações**
 git status
 
-# Adiciona arquivos ao stage
+**Adiciona arquivos ao stage**
 git add teste.txt        # adiciona um arquivo
 git add .                  # adiciona todos os arquivos
 
-# Faz o commit das alterações
+**Faz o commit das alterações**
 git commit -m "mensagem do commit"
 
-# Ver histórico de commits
+**Ver histórico de commits**
 git log
 
-# Cria uma nova branch e muda para ela
+**Cria uma nova branch e muda para ela**
 git checkout -b nova-feature
 
-# Muda para outra branch
+**Muda para outra branch**
 git checkout main
 
-# Junta alterações da branch 'nova-feature' com a 'main'. Execute-o sempre a partir da branch que irá receber as mudanças. Neste exemplo estamos na branch main mergeando, isto é, recebendo as mudanças da branch nova-feature. Após o merge, você pode excluir a branch criada para tal função.
+**Junta alterações da branch 'nova-feature' com a 'main'. Execute-o sempre a partir da branch que irá receber as mudanças. Neste exemplo estamos na branch main mergeando, isto é, recebendo as mudanças da branch nova-feature. Após o merge, você pode excluir a branch criada para tal função.**
 git merge nova-feature
 
-# Atualiza o repositório local com as mudanças do remoto
+**Atualiza o repositório local com as mudanças do remoto**
 git pull
 
-# Envia suas alterações para o GitHub
+**Envia suas alterações para o GitHub**
 git push origin minha-branch
 
-# Ver diferenças entre arquivos
+**Ver diferenças entre arquivos**
 git diff
 
-# Reverte um commit
+**Reverte um commit**
 git revert <id-do-commit>
 
 ---
@@ -69,9 +69,9 @@ git revert <id-do-commit>
 
 Arquivo responsável por indicar quais pastas ou arquivos não devem ser incluídos no repositório. Por exemplo:
 
-node_modules/
-.env
-*.log
+- node_modules/
+- .env
+- *.log
 
 ## Boas práticas:
 
@@ -81,7 +81,7 @@ node_modules/
 - Revise Pull Requests com atenção antes de fazer merge.
 - Use tags para marcar versões importantes.
 
-## E o github, hein?
+## E o Github, hein?
 
 GitHub é, entre outras coisas, uma plataforma de hospedagem de repositórios Git na nuvem. Ele permite colaboração entre desenvolvedores, revisão de código, integração contínua (CI), e muito mais. Ele possibilita:
 
