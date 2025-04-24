@@ -23,45 +23,45 @@ Se você trabalha com desenvolvimento de software, é essencial entender **Git**
 
 ## Principais comandos do Git:
 
-**Inicializa um repositório Git**
-git init
+Inicializa um repositório Git:
+**git init**
 
-**Clona um repositório remoto**
-git clone https://github.com/usuario/repositorio.git
+Clona um repositório remoto:
+**git clone https://github.com/usuario/repositorio.git**
 
-**Verifica o status das alterações**
-git status
+Verifica o status das alterações:
+**git status**
 
-**Adiciona arquivos ao stage**
-git add teste.txt        # adiciona um arquivo
-git add .                  # adiciona todos os arquivos
+Adiciona arquivos ao stage:
+- **git add teste.txt** ->        # adiciona um arquivo
+- **git add .** ->                # adiciona todos os arquivos
 
-**Faz o commit das alterações**
-git commit -m "mensagem do commit"
+Faz o commit das alterações:
+**git commit -m "mensagem do commit"**
 
-**Ver histórico de commits**
-git log
+Ver histórico de commits:
+**git log**
 
-**Cria uma nova branch e muda para ela**
-git checkout -b nova-feature
+Cria uma nova branch e muda para ela:
+**git checkout -b nova-feature**
 
-**Muda para outra branch**
-git checkout main
+Muda para outra branch:
+**git checkout main**
 
-**Junta alterações da branch 'nova-feature' com a 'main'. Execute-o sempre a partir da branch que irá receber as mudanças. Neste exemplo estamos na branch main mergeando, isto é, recebendo as mudanças da branch nova-feature. Após o merge, você pode excluir a branch criada para tal função.**
-git merge nova-feature
+Junta alterações da branch 'nova-feature' com a 'main'. Execute-o sempre a partir da branch que irá receber as mudanças. Neste exemplo estamos na branch main mergeando, isto é, recebendo as mudanças da branch nova-feature. Após o merge, você pode excluir a branch criada para tal função:
+**git merge nova-feature**
 
-**Atualiza o repositório local com as mudanças do remoto**
-git pull
+Atualiza o repositório local com as mudanças do remoto:
+**git pull**
 
-**Envia suas alterações para o GitHub**
-git push origin minha-branch
+Envia suas alterações para o GitHub:
+**git push origin minha-branch**
 
-**Ver diferenças entre arquivos**
-git diff
+Ver diferenças entre arquivos:
+**git diff**
 
-**Reverte um commit**
-git revert <id-do-commit>
+Reverte um commit:
+**git revert <id-do-commit>**
 
 ---
 
