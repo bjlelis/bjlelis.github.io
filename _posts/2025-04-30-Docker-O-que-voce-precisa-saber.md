@@ -1,5 +1,5 @@
 
-# Docker: O que você 'precisa' saber
+# O que você 'precisa' saber sobre Docker
 
 ## 1. Fundamentos do Docker e Containerização
 
