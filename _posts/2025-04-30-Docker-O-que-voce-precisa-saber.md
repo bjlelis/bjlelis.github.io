@@ -3,10 +3,10 @@
 
 ## 1. Fundamentos do Docker e Containerização
 
-Docker é uma plataforma que permite empacotar aplicações e suas dependências em **containers** — unidades leves, portáveis e consistentes que podem ser executadas em qualquer ambiente que tenha o Docker instalado.
+Longe de mim querer ditar o que você deve ou não aprender. Humildemente me coloco como alguem disposto a compartilhar o que venho aprendendo. E containerização é um dos temas. Então vamos lá. O docker é uma plataforma que permite empacotar aplicações e suas dependências em **containers** — unidades leves, portáveis e consistentes que podem ser executadas em qualquer ambiente que tenha o Docker instalado.
 
 ### O que é containerização?
-- É o processo de empacotar código e suas dependências para que a aplicação possa rodar rapidamente e de forma confiável em qualquer ambiente.
+- É o processo de empacotar código e suas dependências para que a aplicação possa rodar rapidamente e de forma confiável em qualquer ambiente. Elimina aquele papo de 'na minha máquina funciona'.
 - Os containers compartilham o mesmo kernel do sistema operacional, tornando-os mais leves que VMs.
 
 ## 2. Vantagens do Docker
@@ -14,20 +14,20 @@ Docker é uma plataforma que permite empacotar aplicações e suas dependências
 - **Rapidez**: Inicialização quase instantânea.
 - **Isolamento**: Aplicações independentes e isoladas umas das outras.
 - **Escalabilidade**: Fácil de replicar containers.
-- **Consistência entre ambientes**.
+- **Consistência entre ambientes**: Lembra do 'na minha máquina funciona?', então, você pode migrar seus containers para outros ambientes e eles irão funcionar muito bem.
 
 ## 3. Principais Comandos Docker
-```bash
-# Verificar versão
+```
+# Verificar versão do docker instalada:
 $ docker --version
 
-# Listar containers ativos
+# Listar apenas os containers ativos:
 $ docker ps
 
-# Listar todos containers (inclusive parados)
+# Listar TODOS os containers: 
 $ docker ps -a
 
-# Iniciar um container
+# Iniciar um container com nginx:
 $ docker run -d -p 8080:80 nginx
 
 # Acessar o terminal de um container
@@ -36,10 +36,10 @@ $ docker exec -it <container_id> /bin/bash
 # Parar, iniciar e remover containers
 $ docker stop <id> | docker start <id> | docker rm <id>
 
-# Listar imagens
+# Listar imagens baixadas:
 $ docker images
 
-# Remover imagem
+# Remover imagem baixada 
 $ docker rmi <image_id>
 ```
 
@@ -47,29 +47,29 @@ $ docker rmi <image_id>
 
 ```dockerfile
 # Dockerfile básico para app Node.js
-FROM node:18
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["node", "index.js"]
+FROM node:18               # imagem base que será usada noo container
+WORKDIR /app               # Diretporio de trabalho. Todos os comandos serão executados dentro dessa pasta
+COPY package*.json ./      # Copia do host para o container
+RUN npm install            # Instala as dependências listadas no json usando npm
+COPY . .                   # Copia tudo do diretório atual do host para o container
+EXPOSE 3000                # Mostra que o container vai escutar na porta 3000
+CMD ["node", "index.js"]   # Comando padrão que será executado quando o container iniciar
 ```
 
 ## 5. Multi-Staging e Layer Caching
 
 ### Multi-Staging:
-Evita que dependências de build fiquem na imagem final.
+Evita que dependências de build fiquem na imagem final. Torna a imagem mais leve e segura, diminuindo a superfície de ataque.
 ```dockerfile
 # Etapa de build
-FROM node:18 as builder
-WORKDIR /app
-COPY . .
-RUN npm install && npm run build
+FROM node:18 as builder              # nomeia a imagem que será usada na etapa de build e dá um alias a ela de 'as'
+WORKDIR /app                         # Define o diretório de trabalho
+COPY . .                             # Copia do host para o container
+RUN npm install && npm run build     # Instala as dependências e compila a aplicação
 
 # Etapa final
-FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
+FROM nginx:alpine                                        # Define a imagem alpine, leve.
+COPY --from=builder /app/dist /usr/share/nginx/html      # Copia o conteúdo gerado pela etapa anterior para o diretório dentro do container
 ```
 
 ### Layer Caching:
@@ -77,7 +77,7 @@ Cada instrução no Dockerfile cria uma camada. Se nada mudar, a camada é reuti
 
 ## 6. Docker Compose
 
-Permite orquestrar múltiplos containers com um único arquivo YAML.
+Permite orquestrar múltiplos containers com um único arquivo YAML. Útil para cenários de testes, desenvolvimento e laboratórios
 ```yaml
 version: '3.9'
 services:
@@ -92,7 +92,7 @@ services:
       POSTGRES_PASSWORD: pass
 ```
 
-```bash
+```
 # Subir containers com Compose
 $ docker-compose up -d
 # Parar
@@ -101,8 +101,8 @@ $ docker-compose down
 
 ## 7. Volumes
 
-Permitem persistência de dados entre execuções de containers.
-```bash
+Os containers são efêmeros, os dados se perdem quando ele é destruído. O volueme permite persistência de dados entre execuções de containers.
+```
 # Criar volume
 $ docker volume create meu-volume
 # Usar volume
@@ -121,28 +121,27 @@ $ docker run --network minha-rede nome-imagem
 
 ## 9. Bind Mounts
 
-Montagem direta de um diretório do host no container.
-```bash
+Montagem direta de um diretório do host no container. Útil para testes, não recomendado para produção, ja que acessa um espaço no host e mapeia no container.
+```
 $ docker run -v $(pwd):/app meu-container
 ```
 
 ## 10. Segurança e Boas Práticas
 
-- Use imagens oficiais ou verificadas.
+- Use imagens oficiais, verificadas ou customizadas por sua equipe.
 - Mantenha imagens atualizadas.
-- Minimize o uso de root no container.
+- Minimize o uso de root no container. Crie e use um usuário.
 - Use Docker secrets para senhas e chaves.
 - Reduza o tamanho da imagem com `alpine` ou multi-staging.
-- Faça scan de vulnerabilidades com ferramentas como `docker scan` ou `Trivy`.
+- Faça scan de vulnerabilidades com ferramentas como o `Trivy`.
 
 ## 11. Docker Registry (Hub e Alternativas)
 
 - **Docker Hub**: Principal registry público.
-- **GitHub Container Registry (GHCR)**: Alternativa gratuita.
 - **Harbor**: Registry privado.
 - **Amazon ECR / Azure ACR / Google GCR**: Registries gerenciados em nuvem.
 
-```bash
+```
 # Login no Docker Hub
 $ docker login
 # Taggear imagem
@@ -150,29 +149,5 @@ $ docker tag minha-imagem user/minha-imagem:latest
 # Enviar imagem
 $ docker push user/minha-imagem:latest
 ```
-
-## 12. CI/CD com Docker
-
-Pipeline típico (ex: GitHub Actions):
-```yaml
-name: CI/CD Docker
-on:
-  push:
-    branches: [main]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Login no Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-      - name: Build imagem
-        run: docker build -t user/app:latest .
-      - name: Push imagem
-        run: docker push user/app:latest
-```
-
----
 
 Com esse material, tenho documentado tudo o que venho aprendendo sobre Docker, com exemplos práticos para cada etapa. Ainda há muito o que explorar, como Kubernetes e ferramentas como Helm e Skaffold, mas esse é um ótimo ponto de partida.
